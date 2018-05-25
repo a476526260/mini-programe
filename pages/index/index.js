@@ -32,10 +32,10 @@ Page({
         searching:res.discovering?"正在搜索":"已停止搜索"
       })
     });
-    wx.onBeaconUpdate(function (beacons){
+    wx.onBLEConnectionStateChange(function(res){
       console.log(res)
     });
-    wx.onBeaconServiceChange(function (res){
+    wx.onBLECharacteristicValueChange(function(res){
       console.log(res)
     })
 
@@ -172,6 +172,9 @@ Page({
   },
   linkTo(e){
     var _this=this;
+    _this.setData({
+      "connectedDeviceId": "",
+    })
     wx.createBLEConnection({
       deviceId: e.currentTarget.id,
       success: function(res) {
@@ -179,7 +182,31 @@ Page({
         _this.setData({
           "connectedDeviceId": e.currentTarget.id,
           "message": "已连接到：" + e.currentTarget.id
-        })
+        });
+        wx.getBLEDeviceServices({
+          deviceId: e.currentTarget.id,
+          success:function(res){
+            wx.getBLEDeviceCharacteristics({
+              deviceId: e.currentTarget.id,
+              serviceId: res.services[0].uuid,
+              success: function(v) {
+                var service = res.services[0].uuid;
+                wx.readBLECharacteristicValue({
+                  deviceId: e.currentTarget.id,
+                  serviceId: service,
+                  characteristicId: v.characteristics[0].uuid,
+                  success:function(vv){
+                    console.log(vv)
+                  }
+                })
+              },
+            })
+          }
+        });
+        wx.onBLEConnectionStateChange(function(res){
+          console.log(res)
+        });
+        _this.stopBluetoothDiscovery();
       },
     })
     console.log(_this.data.connectedDeviceId);  
