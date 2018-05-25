@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='section'>
+    <text class='status'>适配器状态：{{status}}</text>
+    <text class='searching'>是否在搜索：{{searching}}</text>
+    <text class='message'>消息:{{message}}</text>
+  </view>
+
+  <view class='controls'>
+    <button type='primary' size='mini' bindtap='startBluetooth'>初始化蓝牙适配器</button> 
+    <button type='primary' size='mini' bindtap='closeBluetooth'>关闭蓝牙适配器</button>
+    <button type='primary' size='mini' bindtap='getBluetoothState'>获取蓝牙模块状态</button>
+    <button type='primary' size='mini' bindtap='startBluetoothDiscovery'>开始搜索周边蓝牙</button>
+    <button type='primary' size='mini' bindtap='stopBluetoothDiscovery'>停止搜索</button>
+    <!--<button type='primary' size='mini' bindtap='getBluetoothDevices'>获取已发现蓝牙设备</button>-->
+    <button type='primary' size='mini' bindtap='getConnectedBluetoothDevices'>获取已连接状态的设备</button>
+  </view>
+  
+  <view class='blueToothListTitle'>蓝牙列表</view>
+  <view class='blueToothList'>
+    <block wx:for="{{devices}}" wx:key="{{item.name}}">
+      <view class='blueToothItem'>
+        <text>设备名称：{{item.name}}</text>
+        <text>设备ID:{{item.deviceId}}</text>
+        <text>信号强度:{{item.RSSI}}</text>
+        <text>链接状态:{{connectedDeviceId==item.deviceId?"已连接":"未连接"}}</text>
+      </view>
+      <view class="linkButton">
+        <button type='primary' size='mini' class='button' id='{{item.deviceId}}'  bindtap='linkTo'>连接</button>
+      </view>
+    </block>
+  </view>
+</view>
+<view class='controls'>
+  <button type='primary' size='mini' bindtap='setScreenBrightness'>设置屏幕亮度</button>
+</view>
+
+<view class='controls'>
+  <button type='primary' size='mini' bindtap='startBeaconDiscovery'>搜索Ibeacon设备</button>
+  <button type='primary' size='mini' bindtap='stopBeaconDiscovery'>停止搜索Ibeacon设备</button>
+  <button type='primary' size='mini' bindtap='getBeacons'>获取已搜索到的设备</button>
+</view>
+
+

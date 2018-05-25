@@ -1,0 +1,47 @@
+.container{
+  width: 100%;
+  padding: 0 20px;
+}
+
+text{
+  display: block;
+  margin: 5px auto;
+  font-size: 14px;
+}
+.controls{
+  margin: 0 auto;
+}
+button{
+  margin: 6px auto;
+  width: 450rpx;
+  height: 30px;
+  padding: 10px 0;
+  line-height: 30px;
+}
+
+.blueToothListTitle{
+  font-size: 18px;
+  font-weight: bold;
+}
+.blueToothItem{
+  margin: 10px 0;
+  background: lavender;
+  border: 1px solid #ddd;
+}
+
+.button{
+  width: 300rpx;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
